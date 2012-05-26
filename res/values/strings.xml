@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="hello">Hello World, ParishActivity!</string>
     <string name="app_name">Catholic Diocese</string>
+    <string name="webview_loading">Loading&#8230;</string>
+    <string name="webview_sharetext">From the Catholic Diocese mobile app:</string>
+    <string name="news_empty_list">No news articles available.</string>
 
 </resources>
