@@ -54,7 +54,8 @@ public class JJGWebViewActivity extends Activity {
 		viewer.getSettings().setJavaScriptEnabled(true); // Turn on JavaScript.
 		viewer.getSettings().setUseWideViewPort(true); // Allow double-tap to zoom.
 		viewer.getSettings().setBuiltInZoomControls(true); // Allow pinch-to-zoom.
-		viewer.setWebViewClient(new NewsWebViewClient()); // Use our overridden webview client.
+		viewer.setWebViewClient(new JJGWebViewClient()); // Use our overridden webview client.
+		// viewer.setScrollBarStyle(viewer.SCROLLBARS_INSIDE_OVERLAY); // Don't let scrollbars add whitespace.
 
 		// Progress bar.
 		final Activity activity = this;
@@ -85,7 +86,7 @@ public class JJGWebViewActivity extends Activity {
 	}
 
 	// Override the WebViewClient to allow control over browser.
-	private class NewsWebViewClient extends WebViewClient {
+	private class JJGWebViewClient extends WebViewClient {
 		@Override
 		public boolean shouldOverrideUrlLoading(WebView view, String url) {
 			// Returning false here means all links will open in-app.
