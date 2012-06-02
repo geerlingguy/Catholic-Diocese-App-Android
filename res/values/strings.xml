@@ -3,6 +3,8 @@
     <string name="app_name">Catholic Diocese</string>
     <string name="webview_loading">Loading&#8230;</string>
     <string name="webview_sharetext">From the Catholic Diocese mobile app:</string>
+	<string name="mapview_open">Open</string>
+	<string name="mapview_dismiss">Dismiss</string>
     <string name="news_empty_list">No news articles available.</string>
     <string name="news_icon">News Icon</string>
     <string name="placeholder_date">Date</string>
