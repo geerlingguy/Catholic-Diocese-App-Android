@@ -7,6 +7,7 @@ import android.text.Html;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -55,7 +56,7 @@ public class JJGWebViewActivity extends Activity {
 		viewer.getSettings().setUseWideViewPort(true); // Allow double-tap to zoom.
 		viewer.getSettings().setBuiltInZoomControls(true); // Allow pinch-to-zoom.
 		viewer.setWebViewClient(new JJGWebViewClient()); // Use our overridden webview client.
-		// viewer.setScrollBarStyle(viewer.SCROLLBARS_INSIDE_OVERLAY); // Don't let scrollbars add whitespace.
+		viewer.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY); // Don't let scrollbars add whitespace.
 
 		// Progress bar.
 		final Activity activity = this;

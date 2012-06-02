@@ -38,6 +38,9 @@ public class NewsActivity extends ListActivity {
 		setContentView(R.layout.list);
 
 		// Load the feed into the list, or refresh it.
+		// TODO - Use AsyncTask to download news on separate thread, and show
+		// a ProgressDialog while downloading.
+		// @see - http://developer.android.com/reference/android/os/AsyncTask.html
 		if (newsAdapter == null) {
 			initializeFeed();
 		} else {
