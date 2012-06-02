@@ -18,12 +18,13 @@
 			android:layout_height="42dp"
 			android:layout_marginBottom="6dp"
 			android:gravity="center_horizontal"
-			android:src="@drawable/news_icon"/>
+			android:src="@drawable/news_icon"
+			android:contentDescription="@string/news_icon"/>
 		<TextView xmlns:android="http://schemas.android.com/apk/res/android" 
 			android:id="@+id/date"
 			android:layout_width="52dp"
 			android:layout_height="wrap_content"
-			android:text="Date"
+			android:text="@string/placeholder_date"
 			android:textSize="11dp"
 			android:maxLines="2"
 			android:minLines="2"
@@ -32,38 +33,31 @@
 	<LinearLayout
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="4dp"
+		android:layout_marginTop="2dp"
 		android:layout_marginBottom="6dp"
 		android:orientation="vertical">
-		<LinearLayout
+		<TextView xmlns:android="http://schemas.android.com/apk/res/android" 
+			android:id="@+id/title"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:layout_marginTop="0dp"
+			android:layout_marginBottom="4dp"
+			android:text="@string/placeholder_title"
+			android:textSize="18dp"
+			android:maxLines="2"
+			android:minLines="1"
+			android:gravity="left"
+			android:textStyle="bold"
+			android:ellipsize="end"/>
+		<!-- Someday use the android:ellipsize="end" attribute to add ellipses. -->
+		<!-- See: http://code.google.com/p/android/issues/detail?id=2254 -->
+		<TextView xmlns:android="http://schemas.android.com/apk/res/android" 
+			android:id="@+id/description"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="vertical"
-			android:layout_weight="1"
-			android:gravity="center_vertical">
-			<TextView xmlns:android="http://schemas.android.com/apk/res/android" 
-				android:id="@+id/title"
-				android:layout_width="wrap_content" 
-				android:layout_height="wrap_content"
-				android:layout_marginTop="1dp"
-				android:layout_marginBottom="4dp"
-				android:text="Title"
-				android:textSize="18dp"
-				android:maxLines="2"
-				android:minLines="1"
-				android:gravity="left"
-				android:textStyle="bold"
-				android:ellipsize="end"/>
-			<!-- Someday use the android:ellipsize="end" attribute to add ellipses. -->
-			<!-- See: http://code.google.com/p/android/issues/detail?id=2254 -->
-			<TextView xmlns:android="http://schemas.android.com/apk/res/android" 
-				android:id="@+id/description"
-				android:layout_width="wrap_content" 
-				android:layout_height="wrap_content"
-				android:text="Description"
-				android:textSize="16dp"
-				android:maxLines="3"
-				android:minLines="1"/>
-		</LinearLayout>
+			android:text="@string/placeholder_description"
+			android:textSize="16dp"
+			android:maxLines="3"
+			android:minLines="1"/>
 	</LinearLayout>
 </LinearLayout>
