@@ -1,7 +1,6 @@
 package com.midwesternmac.catholicdiocese;
 
 import com.midwesternmac.catholicdiocese.R;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
