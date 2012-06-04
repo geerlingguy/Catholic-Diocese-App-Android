@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 
 public class ParishActivity extends MapActivity {
 	List<Overlay> mapoverlays;
+	List<Parish> parishes;
 	Drawable drawable;
 	ParishMapOverlay itemizedoverlay;
 	LinearLayout linearlayout;
@@ -48,21 +49,19 @@ public class ParishActivity extends MapActivity {
 		drawable = map.getResources().getDrawable(R.drawable.map_marker);
 		itemizedoverlay = new ParishMapOverlay(drawable, this);
 
-		// Get the parishes and add them to the map.
-//		for (Message msg : newsfeed.messages) {
-//			double latitude = Double.parseDouble(msg.getGeolatitude());
-//			double longitude = Double.parseDouble(msg.getGeolongitude());
-//
-//			GeoPoint point = new GeoPoint((int)(latitude * 1e6), (int)(longitude * 1e6));
-//
-//			// Prepare the description by shortening it.
-//			StringBuilder description = new StringBuilder(msg.getDescription());
-//			description.setLength(140);
-//			description.append("...");
-//
-//			ParishMapItem parishmapitem = new ParishMapItem(point, msg.getTitle(), description.toString(), msg.getLink().toString());
-//			itemizedoverlay.addOverlay(parishmapitem);
-//		}
+		// Get all the parishes from the database.
+		ParishData parishData = new ParishData(getApplicationContext());
+		parishes = parishData.getAllParishes();
+		for (Parish parish : parishes) {
+			// Convert latitude and longitude to a point on the map.
+			double latitude = (double)parish.getLatitude();
+			double longitude = (double)parish.getLongitude();
+			GeoPoint point = new GeoPoint((int)(latitude * 1e6), (int)(longitude * 1e6));
+
+			// Build the map item and add it to the overlay.
+			ParishMapItem mapItem = new ParishMapItem(point, parish.getName(), parish.getStreetAddress(), parish.getParishID());
+			itemizedoverlay.addOverlay(mapItem);
+		}
 
 		// At the end of adding all points, add the itemizedoverlay.
 		mapoverlays.add(itemizedoverlay);
