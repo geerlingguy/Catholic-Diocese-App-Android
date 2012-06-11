@@ -6,6 +6,7 @@
     android:installLocation="auto" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="8"/>
 
     <application
@@ -28,6 +29,7 @@
             </intent-filter> -->
         </activity>
         <activity android:name=".ParishActivity"></activity>
+        <activity android:name=".ParishDetailActivity"></activity>
         <activity android:name=".PrayerActivity"></activity>
         <activity android:name=".AboutActivity"></activity>
         <activity android:name=".JJGWebViewActivity"></activity>

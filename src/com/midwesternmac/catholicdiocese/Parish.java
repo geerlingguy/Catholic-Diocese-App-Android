@@ -1,9 +1,9 @@
 package com.midwesternmac.catholicdiocese;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Parish {
+public class Parish implements Parcelable {
 	private String parishID;
 	private String name;
 	private String streetAddress;
@@ -12,10 +12,83 @@ public class Parish {
 	private String zipCode;
 	private String phoneNumber;
 	private String faxNumber;
-	private URL websiteURL;
+	private String websiteURL;
 	private String type;
 	private Float latitude;
 	private Float longitude;
+
+	/**
+	 * @begin Parcelable overridden methods.
+	 */
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	/**
+	 * Write object's data to the Parcel that's passed in.
+	 */
+	@Override
+	public void writeToParcel(Parcel out, int flags) {
+		out.writeString(parishID);
+		out.writeString(name);
+		out.writeString(streetAddress);
+		out.writeString(city);
+		out.writeString(state);
+		out.writeString(zipCode);
+		out.writeString(phoneNumber);
+		out.writeString(faxNumber);
+		out.writeString(websiteURL);
+		out.writeString(type);
+		out.writeFloat(latitude);
+		out.writeFloat(longitude);
+	}
+
+	/**
+	 * Regenerate your object. All Parcelables must have a CREATOR that
+	 * implements these two methods.
+	 */
+	public static final Parcelable.Creator<Parish> CREATOR = new Parcelable.Creator<Parish>() {
+		@Override
+		public Parish createFromParcel(Parcel in) {
+			return new Parish(in);
+		}
+
+		@Override
+		public Parish[] newArray(int size) {
+			return new Parish[size];
+		}
+	};
+
+	/**
+	 * Return a Parish populated by a Parcel that's passed in. Properties must
+	 * be in the same order as in the writeToParcel() method above!
+	 */
+	public Parish(Parcel in) {
+		if (in != null) {
+			parishID = in.readString();
+			name = in.readString();
+			streetAddress = in.readString();
+			city = in.readString();
+			state = in.readString();
+			zipCode = in.readString();;
+			phoneNumber = in.readString();
+			faxNumber = in.readString();
+			websiteURL = in.readString();
+			type = in.readString();
+			latitude = in.readFloat();
+			longitude = in.readFloat();
+		}
+	}
+
+	/**
+	 * @end Parcelable overridden methods.
+	 */
+
+	/**
+	 * @begin Getters and setters.
+	 */
 
 	public String getParishID() {
 		return parishID;
@@ -29,6 +102,10 @@ public class Parish {
 	}
 	public void setName(String title) {
 		this.name = title.trim();
+	}
+
+	public String getFullAddress() {
+		return streetAddress + "\n" + city + " " + state + ", " + zipCode;
 	}
 
 	public String getStreetAddress() {
@@ -94,19 +171,19 @@ public class Parish {
 		this.latitude = latitudeNumber;
 	}
 	
-	public URL getWebsiteURL() {
+	public String getWebsiteURL() {
 		return websiteURL;
 	}
 	public void setWebsiteURL(String url) {
-		try {
-			this.websiteURL = new URL(url);
-		} catch (MalformedURLException e) {
-			throw new RuntimeException(e);
-		}
+		this.websiteURL = url.trim();
 	}
 
+	/**
+	 * @end Getters and setters.
+	 */
+
 	public Parish copy(){
-		Parish copy = new Parish();
+		Parish copy = new Parish(null);
 		copy.parishID = parishID;
 		copy.name = name;
 		copy.streetAddress = streetAddress;

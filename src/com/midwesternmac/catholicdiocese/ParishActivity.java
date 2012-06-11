@@ -11,7 +11,6 @@ import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 
-import com.midwesternmac.catholicdiocese.JJGWebViewActivity;
 import com.midwesternmac.catholicdiocese.R;
 
 import android.app.AlertDialog;
@@ -19,7 +18,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 
@@ -59,7 +57,7 @@ public class ParishActivity extends MapActivity {
 			GeoPoint point = new GeoPoint((int)(latitude * 1e6), (int)(longitude * 1e6));
 
 			// Build the map item and add it to the overlay.
-			ParishMapItem mapItem = new ParishMapItem(point, parish.getName(), parish.getStreetAddress(), parish.getParishID());
+			ParishMapItem mapItem = new ParishMapItem(point, parish.getName(), parish.getFullAddress(), parish);
 			itemizedoverlay.addOverlay(mapItem);
 		}
 
@@ -102,13 +100,14 @@ public class ParishActivity extends MapActivity {
 			AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
 			dialog.setTitle(item.getTitle());
 			dialog.setMessage(item.getSnippet());
-			final String url = item.getLink();
+			final Parish parish = item.getParish();
 			dialog.setCancelable(true);
 			dialog.setPositiveButton(R.string.mapview_open, new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int id) {
-					Intent showContent = new Intent(getApplicationContext(), JJGWebViewActivity.class);
-					showContent.setData(Uri.parse(url));
-					startActivity(showContent);
+					// Show parish details in new parish detail view.
+					Intent showParish = new Intent(getApplicationContext(), ParishDetailActivity.class);
+					showParish.putExtra("Parish", parish);
+					startActivity(showParish);
 				}
 			});
 			dialog.setNegativeButton(R.string.mapview_dismiss, new DialogInterface.OnClickListener() {
@@ -122,13 +121,13 @@ public class ParishActivity extends MapActivity {
 	}
 
 	private class ParishMapItem extends OverlayItem {
-		private String mLink;
-		public ParishMapItem(GeoPoint point, String title, String snippet, String mLink) {
+		private Parish mParish;
+		public ParishMapItem(GeoPoint point, String title, String snippet, Parish mParish) {
 			super(point, title, snippet);
-			this.mLink = mLink;
+			this.mParish = mParish;
 		}
-		public String getLink() {
-			return mLink;
+		public Parish getParish() {
+			return mParish;
 		}
 	}
 }

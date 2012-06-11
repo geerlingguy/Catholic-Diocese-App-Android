@@ -100,7 +100,7 @@ public class ParishData extends SQLiteOpenHelper {
 
 		// Loop through rows, and add each parish record to the parishes list.
 		while (cursor.isAfterLast() == false) {
-			Parish currentParish = new Parish();
+			Parish currentParish = new Parish(null);
 			currentParish.setParishID(cursor.getString(cursor.getColumnIndex("parish_id")));
 			currentParish.setName(cursor.getString(cursor.getColumnIndex("name")));
 			currentParish.setStreetAddress(cursor.getString(cursor.getColumnIndex("street_address")));
@@ -108,13 +108,13 @@ public class ParishData extends SQLiteOpenHelper {
 			currentParish.setState(cursor.getString(cursor.getColumnIndex("state")));
 			currentParish.setZipCode(cursor.getString(cursor.getColumnIndex("zip_code")));
 			currentParish.setPhoneNumber(cursor.getString(cursor.getColumnIndex("phone_number")));
-			// TODO This is not working, for some reason.
+			// Not all entries have a Fax Number.
 			if (cursor.getString(cursor.getColumnIndex("fax_number")) != null) {
-				//currentParish.setFaxNumber(cursor.getString(cursor.getColumnIndex("fax_number")));
+				currentParish.setFaxNumber(cursor.getString(cursor.getColumnIndex("fax_number")));
 			}
-			// TODO This is not working, for some reason.
-			if (cursor.getString(cursor.getColumnIndex("fax_number")) != null) {
-				//currentParish.setWebsiteURL(cursor.getString(cursor.getColumnIndex("website_url")));
+			// Not all entries have a Website URL.
+			if (cursor.getString(cursor.getColumnIndex("website_url")) != null) {
+				currentParish.setWebsiteURL(cursor.getString(cursor.getColumnIndex("website_url")));
 			}
 			currentParish.setType(cursor.getString(cursor.getColumnIndex("type")));
 			currentParish.setLatitude(cursor.getFloat(cursor.getColumnIndex("latitude")));
