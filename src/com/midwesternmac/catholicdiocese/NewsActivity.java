@@ -10,12 +10,14 @@ import com.midwesternmac.catholicdiocese.R;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -29,8 +31,9 @@ import android.widget.TextView;
 
 public class NewsActivity extends ListActivity {
 	private NewsListener listener = null;
-    private Boolean NewsListenerIsRegistered = false;
-    private NewsItemAdapter newsAdapter = null;
+	private Boolean NewsListenerIsRegistered = false;
+	private NewsItemAdapter newsAdapter = null;
+	private DioceseNewsFeed newsfeed;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -38,11 +41,9 @@ public class NewsActivity extends ListActivity {
 		setContentView(R.layout.list);
 
 		// Load the feed into the list, or refresh it.
-		// TODO - Use AsyncTask to download news on separate thread, and show
-		// a ProgressDialog while downloading.
-		// @see - http://developer.android.com/reference/android/os/AsyncTask.html
+		// TODO: Show progressDialog while loading...
 		if (newsAdapter == null) {
-			initializeFeed();
+			new backgroundInitializeFeed(NewsActivity.this).execute();
 		} else {
 			refreshFeed();
 		}
@@ -53,49 +54,79 @@ public class NewsActivity extends ListActivity {
 		}
 	}
 
-	// Load the news feed into the ListView.
-	private void initializeFeed() {
-		// Get the application context.
-		Context context = this.getApplicationContext();
+	// Use AsyncTask to initialize the feed, to avoid lockup of UI thread.
+	public class backgroundInitializeFeed extends AsyncTask<String, Void, Boolean> {
+		private ProgressDialog dialog;
+		private ListActivity activity;
+		private Context context;
 
-		// Get the news feed, or load it if this is the first time fetching.
-		DioceseNewsFeed newsfeed = DioceseNewsFeed.getInstance(context);
-
-		// Create an array of for all the titles and descriptions.
-		ArrayList<NewsItem> items = new ArrayList<NewsItem>();
-
-		try {
-			// Add the news stories to the array from the messages list.
-			for (Message msg : newsfeed.messages) {
-				NewsItem item = new NewsItem(msg.getTitle(), Html.fromHtml(
-						msg.getDescription()).toString(),
-						msg.getDateString());
-				items.add(item);
-			}
+		public backgroundInitializeFeed(ListActivity activity) {
+			this.activity = activity;
+			context = activity;
+			dialog = new ProgressDialog(context);
 		}
-		catch (Throwable t) {
-			// Display an alert letting the user know the feed download failed.
-			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-			alertDialog.setTitle("Download Error");
-			alertDialog.setMessage("There was an error downloading the latest news. Please try again later, when you have a reliable internet connection.");
-			alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-					// Don't do anything.
+
+		// Before downloading news, set a progress dialog.
+		protected void onPreExecute() {
+			this.dialog.setMessage("Downloading news...");
+			this.dialog.show();
+		}
+
+		// Download the news in the background task.
+		@Override
+		protected Boolean doInBackground(final String... params) {
+			// Get the news feed, or load it if this is the first time fetching.
+			// TODO: Surround with try/catch.
+			newsfeed = DioceseNewsFeed.getInstance(context);
+			return true;
+		}
+
+		// Once news is downloaded, fill the list, dismiss the dialog.
+		protected void onPostExecute(final Boolean success) {
+			// Create an array of for all the titles and descriptions.
+			ArrayList<NewsItem> items = new ArrayList<NewsItem>();
+
+			try {
+				// Add the news stories to the array from the messages list.
+				for (Message msg : newsfeed.messages) {
+					NewsItem item = new NewsItem(msg.getTitle(), Html.fromHtml(
+							msg.getDescription()).toString(),
+							msg.getDateString());
+					items.add(item);
 				}
-			});
-			alertDialog.setIcon(R.drawable.icon);
-			alertDialog.show();
-		}
+			}
+			catch (Throwable t) {
+				// Display an alert letting the user know the feed download failed.
+				AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+				alertDialog.setTitle("Download Error");
+				alertDialog.setMessage("There was an error downloading the latest news. Please try again later, when you have a reliable internet connection.");
+				alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						// Don't do anything.
+					}
+				});
+				alertDialog.setIcon(R.drawable.icon);
+				alertDialog.show();
+			}
 
-		// Build the rows by adding them to our custom ArrayAdapter.
-		newsAdapter = new NewsItemAdapter(this, R.layout.row, items);
-		this.setListAdapter(newsAdapter);
+			// Build the rows by adding them to our custom ArrayAdapter.
+			newsAdapter = new NewsItemAdapter(context, R.layout.row, items);
+			activity.setListAdapter(newsAdapter);
+			newsAdapter.notifyDataSetChanged();
+
+			// Dismiss the progress dialog.
+			if (dialog.isShowing()) {
+                dialog.dismiss();
+            }
+		}
 	}
 
 	/**
 	 * When refreshing the feed, to preserve the actual array adapter, and to
 	 * allow the preservation of the user's scroll location in the ListView, we
 	 * rebuild the feed from the messages list.
+	 * 
+	 * TODO: Consider putting this into AsyncTask/backgroundInitializeFeed?
 	 */
 	public void refreshFeed() {
 		// Get the application context.
