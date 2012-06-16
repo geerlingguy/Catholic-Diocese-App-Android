@@ -31,6 +31,7 @@
         <activity android:name=".ParishActivity"></activity>
         <activity android:name=".ParishDetailActivity"></activity>
         <activity android:name=".PrayerActivity"></activity>
+        <activity android:name=".PrayerDetailActivity"></activity>
         <activity android:name=".AboutActivity"></activity>
         <activity android:name=".JJGWebViewActivity"></activity>
     </application>
