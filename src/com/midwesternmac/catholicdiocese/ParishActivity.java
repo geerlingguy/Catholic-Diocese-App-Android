@@ -19,6 +19,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.ViewConfiguration;
 import android.widget.LinearLayout;
 
 public class ParishActivity extends MapActivity {
@@ -28,6 +30,7 @@ public class ParishActivity extends MapActivity {
 	ParishMapOverlay itemizedoverlay;
 	LinearLayout linearlayout;
 	MapView map;
+	MapController mapcontroller;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,7 +42,7 @@ public class ParishActivity extends MapActivity {
 		map.setBuiltInZoomControls(true);
 
 		// Set the Map's center location and default zoom level.
-		MapController mapcontroller = map.getController();
+		mapcontroller = map.getController();
 		mapcontroller.setCenter(new GeoPoint(38631355, -95396881));
 		mapcontroller.setZoom(4);
 
@@ -73,6 +76,7 @@ public class ParishActivity extends MapActivity {
 	private class ParishMapOverlay extends ItemizedOverlay<ParishMapItem> {
 		private Context mContext = null;
 		private ArrayList<ParishMapItem> overlays = new ArrayList<ParishMapItem>();
+		private long systemTime = System.currentTimeMillis();
 
 		public ParishMapOverlay(Drawable defaultMarker, Context context) {
 			super(boundCenterBottom(defaultMarker));
@@ -117,6 +121,22 @@ public class ParishActivity extends MapActivity {
 			});
 			dialog.show();
 			return true;
+		}
+
+		@Override
+		public boolean onTouchEvent(MotionEvent event, MapView mapView) {
+			switch (event.getAction()) {
+			case MotionEvent.ACTION_DOWN:
+				if ((System.currentTimeMillis() - systemTime) < ViewConfiguration.getDoubleTapTimeout()) {
+					mapcontroller.zoomInFixing((int) event.getX(), (int) event.getY());
+				}
+				break;
+			case MotionEvent.ACTION_UP:
+				systemTime = System.currentTimeMillis();
+				break;
+			}
+
+			return false;
 		}
 	}
 
