@@ -19,6 +19,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 import android.widget.LinearLayout;
@@ -149,5 +152,22 @@ public class ParishActivity extends MapActivity {
 		public Parish getParish() {
 			return mParish;
 		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		menu.addSubMenu(0, 0, 0, "Search Parishes");
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
+		switch (id) {
+		case 0: // Search Parishes.
+			Log.d("PA", "Search Parishes button clicked.");
+			break;
+		}
+		return true;
 	}
 }
