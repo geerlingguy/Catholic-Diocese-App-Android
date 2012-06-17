@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TwoLineListItem xmlns:android="http://schemas.android.com/apk/res/android"
+  android:paddingTop="6dp"
+  android:paddingBottom="6dp"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:mode="twoLine">
+	<TextView android:textAppearance="?android:attr/textAppearanceLarge"
+		android:id="@+id/parish_name"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="10dp"/>
+	<TextView android:textAppearance="?android:attr/textAppearanceSmall"
+		android:id="@+id/parish_city"
+		android:paddingBottom="2dp"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/parish_name"
+		android:layout_alignLeft="@+id/parish_name"/>
+</TwoLineListItem>

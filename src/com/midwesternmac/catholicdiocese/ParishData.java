@@ -88,6 +88,38 @@ public class ParishData extends SQLiteOpenHelper {
 		// any statements inside this method will be executed.
 	}
 
+	public Parish getParishByID(String id) {
+		Parish parish = new Parish(null);
+
+		// Connect to the database and retrieve the parish.
+		// TODO: Use a better/more secure way to query the db with placeholders.
+		SQLiteDatabase database = getReadableDatabase();
+		Cursor cursor = database.rawQuery("SELECT * FROM " + PARISH_DATA_TABLE_NAME + " WHERE parish_id = '" + id + '\'', null);
+		cursor.moveToFirst();
+
+		// Build the parish object from the row.
+		parish.setParishID(cursor.getString(cursor.getColumnIndex("parish_id")));
+		parish.setName(cursor.getString(cursor.getColumnIndex("name")));
+		parish.setStreetAddress(cursor.getString(cursor.getColumnIndex("street_address")));
+		parish.setCity(cursor.getString(cursor.getColumnIndex("city")));
+		parish.setState(cursor.getString(cursor.getColumnIndex("state")));
+		parish.setZipCode(cursor.getString(cursor.getColumnIndex("zip_code")));
+		parish.setPhoneNumber(cursor.getString(cursor.getColumnIndex("phone_number")));
+		// Not all entries have a Fax Number.
+		if (cursor.getString(cursor.getColumnIndex("fax_number")) != null) {
+			parish.setFaxNumber(cursor.getString(cursor.getColumnIndex("fax_number")));
+		}
+		// Not all entries have a Website URL.
+		if (cursor.getString(cursor.getColumnIndex("website_url")) != null) {
+			parish.setWebsiteURL(cursor.getString(cursor.getColumnIndex("website_url")));
+		}
+		parish.setType(cursor.getString(cursor.getColumnIndex("type")));
+		parish.setLatitude(cursor.getFloat(cursor.getColumnIndex("latitude")));
+		parish.setLongitude(cursor.getFloat(cursor.getColumnIndex("longitude")));
+
+		return parish;
+	}
+
 	public List<Parish> getAllParishes() {
 		List<Parish> parishes = new ArrayList<Parish>();
 

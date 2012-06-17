@@ -21,7 +21,7 @@ public class ParishDetailActivity extends ListActivity {
 	Boolean hasWebsiteURL;
 	Parish parish;
 
-	/** Called when the activity is first created. */
+	// Called when the activity is first created.
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
@@ -78,7 +78,7 @@ public class ParishDetailActivity extends ListActivity {
 		});
 	}
 
-	/** Called when an item in the list is tapped. */
+	// Called when an item in the list is tapped.
 	@Override
 	protected void onListItemClick(ListView listView, View view, int position, long id) {
 		super.onListItemClick(listView, view, position, id);

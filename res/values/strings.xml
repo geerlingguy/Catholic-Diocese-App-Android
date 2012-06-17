@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_name">Catholic Diocese</string>
+	<string name="parish_search_hint">Search parishes</string>
 	<string name="webview_loading">Loading&#8230;</string>
 	<string name="webview_sharetext">From the Catholic Diocese mobile app:</string>
 	<string name="mapview_open">View Details</string>
