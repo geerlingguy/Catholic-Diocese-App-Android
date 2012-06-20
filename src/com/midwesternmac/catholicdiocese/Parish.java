@@ -198,4 +198,9 @@ public class Parish implements Parcelable {
 		copy.longitude = longitude;
 		return copy;
 	}
+
+	@Override
+	public String toString() {
+		return this.name;
+	}
 }

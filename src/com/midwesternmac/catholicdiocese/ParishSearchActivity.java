@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +19,7 @@ import android.widget.TextView;
 
 public class ParishSearchActivity extends ListActivity {
 	private EditText filterText = null;
-	ArrayAdapter<String> adapter = null;
-	List<Parish> parishes;
+	ArrayAdapter<Parish> adapter = null;
 	ParishData parishData;
 
 	@Override
@@ -42,19 +40,17 @@ public class ParishSearchActivity extends ListActivity {
 			}
 		});
 
-		// Load the list of parishes.
-		parishData = new ParishData(getApplicationContext());
-		parishes = parishData.getAllParishes();
-
 		// Build array adapter with parish names and ids for parish lookup.
-		adapter = new ParishAdapter(this, R.layout.parish_search_row, getParishNameArrayList());
+		parishData = new ParishData(getApplicationContext());
+		adapter = new ParishAdapter(this, R.layout.parish_search_row, parishData.getAllParishes());
 		setListAdapter(adapter);
-		
+
 	}
 
 	// Called when an item in the list is tapped.
 	@Override
-	protected void onListItemClick(ListView listView, View view, int position, long id) {
+	protected void onListItemClick(ListView listView, View view, int position,
+			long id) {
 		super.onListItemClick(listView, view, position, id);
 
 		// Disable the soft keyboard.
@@ -64,51 +60,56 @@ public class ParishSearchActivity extends ListActivity {
 		TextView name = (TextView) view.findViewById(R.id.parish_name);
 
 		// Get the parish by parish ID.
-		// TODO
 		Parish parish = parishData.getParishByID((String) name.getTag());
-		// Parish parish = parishes.get(position);
 
 		// Show parish details in new parish detail view.
-		Intent showParish = new Intent(getApplicationContext(), ParishDetailActivity.class);
+		Intent showParish = new Intent(getApplicationContext(),
+				ParishDetailActivity.class);
 		showParish.putExtra("Parish", parish);
 		startActivity(showParish);
 	}
 
-	// Get a list of all the parish names.
-	private String[] getParishNameArrayList() {
-		String[] parishTitles = new String[parishes.size()];
-		for (int i = 0; i < parishes.size(); i++) {
-			Parish parish = parishes.get(i);
-			parishTitles[i] = parish.getName();
-		}
-		return parishTitles;
-	}
-
 	// Define a custom array adapter.
-	public class ParishAdapter extends ArrayAdapter<String> {
-		public ParishAdapter(Context context, int textViewResourceId, String[] objects) {
-			super(context, textViewResourceId, objects);
+	public class ParishAdapter extends ArrayAdapter<Parish> {
+		private List<Parish> parishes;
+		private Parish parish;
+
+		// Note: The passed in 'objects' are just the parish names (these are
+		// then used by the built in getFilter() filtering to filter results.
+		public ParishAdapter(Context context, int textViewResourceId, List<Parish> parishList) {
+			super(context, textViewResourceId, parishList);
+			parishes = parishList;
 		}
 
+		// TODO: We can't use 'position' as the way to determine which parish
+		// should be diplayed. But what else can we do???
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			// TODO: If the view is already in place, just return it. For some
-			// reason, the searching isn't working with this method of building
-			// the list/arrayadapter...
+			// For performance, only inflate view if it's not already loaded.
+			View row = convertView;
+			if (row == null) {
+				LayoutInflater inflater = getLayoutInflater();
+				row = inflater.inflate(R.layout.parish_search_row, parent, false);
+			}
 
-			LayoutInflater inflater = getLayoutInflater();
-			View row = inflater.inflate(R.layout.parish_search_row, parent, false);
+			// If there's a parish at this location already (e.g. for filtering
+			// purposes), just use the existing parish.
+			if (getItem(position) != null) {
+				parish = getItem(position);
+			} else {
+				parish = parishes.get(position);
+			}
 
 			// Set the parish name.
 			TextView name = (TextView) row.findViewById(R.id.parish_name);
-			name.setText(parishes.get(position).getName());
+			name.setText(parish.getName());
 
 			// Set the parish id using setTag.
-			name.setTag(parishes.get(position).getParishID());
+			name.setTag(parish.getParishID());
 
 			// Set the parish addrss.
 			TextView address = (TextView) row.findViewById(R.id.parish_city);
-			address.setText(parishes.get(position).getCity() + ", " + parishes.get(position).getState());
+			address.setText(parish.getCity() + ", " + parish.getState());
 
 			return row;
 		}
@@ -132,7 +133,7 @@ public class ParishSearchActivity extends ListActivity {
 
 	// Hide the soft keyboard.
 	private void hideKeyboard() {
-		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromWindow(filterText.getWindowToken(), 0);
 	}
 
