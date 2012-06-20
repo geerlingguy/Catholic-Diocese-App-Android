@@ -81,8 +81,6 @@ public class ParishSearchActivity extends ListActivity {
 			parishes = parishList;
 		}
 
-		// TODO: We can't use 'position' as the way to determine which parish
-		// should be diplayed. But what else can we do???
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			// For performance, only inflate view if it's not already loaded.
