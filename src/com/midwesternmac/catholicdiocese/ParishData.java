@@ -81,6 +81,8 @@ public class ParishData extends SQLiteOpenHelper {
 			// If the file's not in the assets folder, we're up a creek!
 			e.printStackTrace();
 		}
+		// Close the database connection.
+		database.close();
 	}
 
 	@Override
@@ -90,35 +92,15 @@ public class ParishData extends SQLiteOpenHelper {
 	}
 
 	public Parish getParishByID(String id) {
-		Parish parish = new Parish(null);
-
 		// Connect to the database and retrieve the parish.
 		// TODO: Use a better/more secure way to query the db with placeholders.
 		SQLiteDatabase database = getReadableDatabase();
 		Cursor cursor = database.rawQuery("SELECT * FROM " + PARISH_DATA_TABLE_NAME + " WHERE parish_id = '" + id + '\'', null);
 		cursor.moveToFirst();
 
-		// Build the parish object from the row.
-		parish.setParishID(cursor.getString(cursor.getColumnIndex("parish_id")));
-		parish.setName(cursor.getString(cursor.getColumnIndex("name")));
-		parish.setStreetAddress(cursor.getString(cursor.getColumnIndex("street_address")));
-		parish.setCity(cursor.getString(cursor.getColumnIndex("city")));
-		parish.setState(cursor.getString(cursor.getColumnIndex("state")));
-		parish.setZipCode(cursor.getString(cursor.getColumnIndex("zip_code")));
-		parish.setPhoneNumber(cursor.getString(cursor.getColumnIndex("phone_number")));
-		// Not all entries have a Fax Number.
-		if (cursor.getString(cursor.getColumnIndex("fax_number")) != null) {
-			parish.setFaxNumber(cursor.getString(cursor.getColumnIndex("fax_number")));
-		}
-		// Not all entries have a Website URL.
-		if (cursor.getString(cursor.getColumnIndex("website_url")) != null) {
-			parish.setWebsiteURL(cursor.getString(cursor.getColumnIndex("website_url")));
-		}
-		parish.setType(cursor.getString(cursor.getColumnIndex("type")));
-		parish.setLatitude(cursor.getFloat(cursor.getColumnIndex("latitude")));
-		parish.setLongitude(cursor.getFloat(cursor.getColumnIndex("longitude")));
-
-		return parish;
+		// Clase the database, return the retrieved parish.
+		database.close();
+		return createParishFromCursor(cursor);
 	}
 
 	public List<Parish> getAllParishes() {
@@ -133,28 +115,8 @@ public class ParishData extends SQLiteOpenHelper {
 
 		// Loop through rows, and add each parish record to the parishes list.
 		while (cursor.isAfterLast() == false) {
-			Parish currentParish = new Parish(null);
-			currentParish.setParishID(cursor.getString(cursor.getColumnIndex("parish_id")));
-			currentParish.setName(cursor.getString(cursor.getColumnIndex("name")));
-			currentParish.setStreetAddress(cursor.getString(cursor.getColumnIndex("street_address")));
-			currentParish.setCity(cursor.getString(cursor.getColumnIndex("city")));
-			currentParish.setState(cursor.getString(cursor.getColumnIndex("state")));
-			currentParish.setZipCode(cursor.getString(cursor.getColumnIndex("zip_code")));
-			currentParish.setPhoneNumber(cursor.getString(cursor.getColumnIndex("phone_number")));
-			// Not all entries have a Fax Number.
-			if (cursor.getString(cursor.getColumnIndex("fax_number")) != null) {
-				currentParish.setFaxNumber(cursor.getString(cursor.getColumnIndex("fax_number")));
-			}
-			// Not all entries have a Website URL.
-			if (cursor.getString(cursor.getColumnIndex("website_url")) != null) {
-				currentParish.setWebsiteURL(cursor.getString(cursor.getColumnIndex("website_url")));
-			}
-			currentParish.setType(cursor.getString(cursor.getColumnIndex("type")));
-			currentParish.setLatitude(cursor.getFloat(cursor.getColumnIndex("latitude")));
-			currentParish.setLongitude(cursor.getFloat(cursor.getColumnIndex("longitude")));
-
 			// Add the current record to the parishes list.
-			parishes.add(currentParish);
+			parishes.add(createParishFromCursor(cursor));
 
 			// After saving a parish, move on to the next row.
 			cursor.moveToNext();
@@ -163,5 +125,29 @@ public class ParishData extends SQLiteOpenHelper {
 		// Close the database connection and return the list.
 		database.close();
 		return parishes;
+	}
+
+	private Parish createParishFromCursor(Cursor cursor) {
+		Parish thisParish = new Parish(null);
+		thisParish.setParishID(cursor.getString(cursor.getColumnIndex("parish_id")));
+		thisParish.setName(cursor.getString(cursor.getColumnIndex("name")));
+		thisParish.setStreetAddress(cursor.getString(cursor.getColumnIndex("street_address")));
+		thisParish.setCity(cursor.getString(cursor.getColumnIndex("city")));
+		thisParish.setState(cursor.getString(cursor.getColumnIndex("state")));
+		thisParish.setZipCode(cursor.getString(cursor.getColumnIndex("zip_code")));
+		thisParish.setPhoneNumber(cursor.getString(cursor.getColumnIndex("phone_number")));
+		// Not all entries have a Fax Number.
+		if (cursor.getString(cursor.getColumnIndex("fax_number")) != null) {
+			thisParish.setFaxNumber(cursor.getString(cursor.getColumnIndex("fax_number")));
+		}
+		// Not all entries have a Website URL.
+		if (cursor.getString(cursor.getColumnIndex("website_url")) != null) {
+			thisParish.setWebsiteURL(cursor.getString(cursor.getColumnIndex("website_url")));
+		}
+		thisParish.setType(cursor.getString(cursor.getColumnIndex("type")));
+		thisParish.setLatitude(cursor.getFloat(cursor.getColumnIndex("latitude")));
+		thisParish.setLongitude(cursor.getFloat(cursor.getColumnIndex("longitude")));
+
+		return thisParish;
 	}
 }

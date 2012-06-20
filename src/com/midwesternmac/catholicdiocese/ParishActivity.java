@@ -18,6 +18,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -26,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 public class ParishActivity extends MapActivity {
@@ -43,17 +45,30 @@ public class ParishActivity extends MapActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.map);
+		// Get map center latitude and longitude from other.xml.
+		Resources res = getResources();
+		int latitude = res.getInteger(R.integer.map_center_latitude);
+		int longitude = res.getInteger(R.integer.map_center_longitude);
 
-		// Get the mapview, and add zoom controls.
-		map = (MapView) findViewById(R.id.map);
+		// Define the mapview in code instead of in XML so we can use a key from
+		// our own other.xml file.
+		map = new MapView(this, getString(R.string.google_maps_api_key));
+		map.setLayoutParams(new MapView.LayoutParams(
+				ViewGroup.LayoutParams.FILL_PARENT,
+				ViewGroup.LayoutParams.FILL_PARENT,
+				new GeoPoint(latitude, longitude), // Map center point.
+				MapView.LayoutParams.CENTER));
+
+		setContentView(map);
+
+		// Add built-in zoom controls and get the map controller.
+		map.setClickable(true);
 		map.setBuiltInZoomControls(true);
-
-		// @config - Set the Map's center location and default zoom level.
-		// TODO: Move these defaults into res/values/other.xml.
 		mapController = map.getController();
-		mapController.setCenter(new GeoPoint(38631355, -95396881));
-		mapController.setZoom(4);
+
+		// Set the Map's default zoom level from other.xml.
+		int defaultZoom = res.getInteger(R.integer.map_default_zoom);
+		mapController.setZoom(defaultZoom);
 
 		mapoverlays = map.getOverlays();
 		drawable = map.getResources().getDrawable(R.drawable.map_marker);
@@ -64,9 +79,9 @@ public class ParishActivity extends MapActivity {
 		parishes = parishData.getAllParishes();
 		for (Parish parish : parishes) {
 			// Convert latitude and longitude to a point on the map.
-			double latitude = (double)parish.getLatitude();
-			double longitude = (double)parish.getLongitude();
-			GeoPoint point = new GeoPoint((int)(latitude * 1e6), (int)(longitude * 1e6));
+			double parishLatitude = (double)parish.getLatitude();
+			double parishLongitude = (double)parish.getLongitude();
+			GeoPoint point = new GeoPoint((int)(parishLatitude * 1e6), (int)(parishLongitude * 1e6));
 
 			// Build the map item and add it to the overlay.
 			ParishMapItem mapItem = new ParishMapItem(point, parish.getName(), parish.getFullAddress(), parish);
