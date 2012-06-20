@@ -45,29 +45,28 @@ public class ParishActivity extends MapActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		// Get map center latitude and longitude from other.xml.
-		Resources res = getResources();
-		int latitude = res.getInteger(R.integer.map_center_latitude);
-		int longitude = res.getInteger(R.integer.map_center_longitude);
-
 		// Define the mapview in code instead of in XML so we can use a key from
 		// our own other.xml file.
 		map = new MapView(this, getString(R.string.google_maps_api_key));
 		map.setLayoutParams(new MapView.LayoutParams(
 				ViewGroup.LayoutParams.FILL_PARENT,
 				ViewGroup.LayoutParams.FILL_PARENT,
-				new GeoPoint(latitude, longitude), // Map center point.
+				null,
 				MapView.LayoutParams.CENTER));
 
 		setContentView(map);
 
-		// Add built-in zoom controls and get the map controller.
+		// Add built-in zoom controls, and get the map controller.
 		map.setClickable(true);
 		map.setBuiltInZoomControls(true);
 		mapController = map.getController();
 
-		// Set the Map's default zoom level from other.xml.
+		// Set the Map's default zoom level and center from other.xml.
+		Resources res = getResources();
+		int latitude = res.getInteger(R.integer.map_center_latitude);
+		int longitude = res.getInteger(R.integer.map_center_longitude);
 		int defaultZoom = res.getInteger(R.integer.map_default_zoom);
+		mapController.setCenter(new GeoPoint(latitude, longitude));
 		mapController.setZoom(defaultZoom);
 
 		mapoverlays = map.getOverlays();

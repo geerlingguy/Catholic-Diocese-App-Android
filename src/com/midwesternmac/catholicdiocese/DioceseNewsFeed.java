@@ -24,7 +24,7 @@ public class DioceseNewsFeed {
 
 			// Load the parser and try parsing the messages.
 			try {
-				BaseFeedParser parser = new BaseFeedParser();
+				BaseFeedParser parser = new BaseFeedParser(context);
 				instance.messages = parser.parse();
 			}
 			catch (Throwable t) {
@@ -47,7 +47,7 @@ public class DioceseNewsFeed {
 		if (lastNewsRefresh == 0 || (fiveMinutesPast > lastNewsRefresh)) {
 			try {
 				// Update the messages list.
-				BaseFeedParser parser = new BaseFeedParser();
+				BaseFeedParser parser = new BaseFeedParser(context);
 				instance.messages = parser.parse();
 			}
 			catch (Throwable t){

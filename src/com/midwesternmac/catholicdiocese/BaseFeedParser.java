@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.midwesternmac.catholicdiocese.Message;
 
+import android.content.Context;
 import android.sax.Element;
 import android.sax.EndElementListener;
 import android.sax.EndTextElementListener;
@@ -16,11 +17,6 @@ import android.sax.RootElement;
 import android.util.Xml;
 
 public class BaseFeedParser {
-
-	// @config - The url of the feed to be parsed.
-	// TODO: Use a value in res/values/other.xml for this instead.
-	static final String feedUrlString = "http://www.jesuit.org/blog/index.php/feed/";
-
 	// Names of the XML tags
 	static final String RSS = "rss";
 	static final String CHANNEL = "channel";
@@ -30,9 +26,12 @@ public class BaseFeedParser {
 	static final String LINK = "guid";
 	static final String TITLE = "title";
 
+	// Feed URL.
 	private final URL feedUrl;
 
-	protected BaseFeedParser(){
+	protected BaseFeedParser(Context context) {
+		// Get the feed URL from other.xml.
+		String feedUrlString = (String) context.getText(R.string.news_feed);
 		try {
 			this.feedUrl = new URL(feedUrlString);
 		} catch (MalformedURLException e) {

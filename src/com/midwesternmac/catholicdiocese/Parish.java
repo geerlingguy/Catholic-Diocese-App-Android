@@ -199,6 +199,8 @@ public class Parish implements Parcelable {
 		return copy;
 	}
 
+	// The toString() method is used when searching for parishes; whatever is
+	// returned here will be searched against using ParishAdapter's filtering.
 	@Override
 	public String toString() {
 		return this.name;
