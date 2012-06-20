@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- Insert your organization's RSS feed URL here. -->
+	<string name="news_feed">http://www.jesuit.org/blog/index.php/feed/</string>
+	<!-- Insert your Google Maps API Key below. Further instructions for getting
+	  an API key can be found at the following URL:
+	  https://developers.google.com/android/maps-api-signup -->
+	<string name="google_maps_api_key">YOUR_KEY_HERE</string>
+	<!-- Set the initial map center point below (latitude and longitude). -->
+	<integer name="map_center_latitude">38631355</integer>
+	<integer name="map_center_longitude">-95396881</integer>
+	<!-- Set the initial map zoom level (4 == most of N. America visible). -->
+	<integer name="map_default_zoom">4</integer>
+
+</resources>
