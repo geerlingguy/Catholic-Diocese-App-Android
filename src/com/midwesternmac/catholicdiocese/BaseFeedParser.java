@@ -17,8 +17,9 @@ import android.util.Xml;
 
 public class BaseFeedParser {
 
-	// The url of the feed to be parsed.
-	static String feedUrlString = "http://www.jesuit.org/blog/index.php/feed/";
+	// @config - The url of the feed to be parsed.
+	// TODO: Use a value in res/values/other.xml for this instead.
+	static final String feedUrlString = "http://www.jesuit.org/blog/index.php/feed/";
 
 	// Names of the XML tags
 	static final String RSS = "rss";

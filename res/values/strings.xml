@@ -6,6 +6,10 @@
 	<string name="webview_sharetext">From the Catholic Diocese mobile app:</string>
 	<string name="mapview_open">View Details</string>
 	<string name="mapview_dismiss">Dismiss</string>
+	<string name="mapview_location_not_found">Location Not Found</string>
+	<string name="mapview_location_not_found_message">Could not find your location. Make sure you have location services enabled.</string>
+	<string name="mapview_menu_search">Search Parishes</string>
+	<string name="mapview_menu_locate">Locate Me</string>
 	<string name="news_empty_list">No news articles available.</string>
 	<string name="news_icon">News Icon</string>
 	<string name="placeholder_date">Date</string>

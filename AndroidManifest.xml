@@ -27,7 +27,7 @@
 		<uses-library android:name="com.google.android.maps" />
 		<activity android:name=".NewsActivity">
 		<!-- <intent-filter>
-			<action android:name="com.midwesternmac.cnl.UPDATELIST" />
+			<action android:name="com.midwesternmac.catholicdiocese.UPDATELIST" />
 		</intent-filter> -->
 		</activity>
 		<activity android:name=".ParishActivity"></activity>

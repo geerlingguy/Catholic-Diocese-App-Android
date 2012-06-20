@@ -41,7 +41,6 @@ public class NewsActivity extends ListActivity {
 		setContentView(R.layout.list);
 
 		// Load the feed into the list, or refresh it.
-		// TODO: Show progressDialog while loading...
 		if (newsAdapter == null) {
 			new backgroundInitializeFeed(NewsActivity.this).execute();
 		} else {
@@ -76,7 +75,6 @@ public class NewsActivity extends ListActivity {
 		@Override
 		protected Boolean doInBackground(final String... params) {
 			// Get the news feed, or load it if this is the first time fetching.
-			// TODO: Surround with try/catch.
 			newsfeed = DioceseNewsFeed.getInstance(context);
 			return true;
 		}
@@ -126,7 +124,7 @@ public class NewsActivity extends ListActivity {
 	 * allow the preservation of the user's scroll location in the ListView, we
 	 * rebuild the feed from the messages list.
 	 * 
-	 * TODO: Consider putting this into AsyncTask/backgroundInitializeFeed?
+	 * TODO: Also use AsyncTask/backgroundInitializeFeed to prevent UI blocking.
 	 */
 	public void refreshFeed() {
 		// Get the application context.

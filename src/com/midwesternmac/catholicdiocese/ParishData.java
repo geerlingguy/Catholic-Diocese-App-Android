@@ -44,6 +44,7 @@ public class ParishData extends SQLiteOpenHelper {
 		// Import parish data from locations CSV file in assets folder.
 		CSVReader reader;
 		try {
+			// @config - CSV data source location.
 			InputStream inputStream = _context.getAssets().open("locations.csv");
 			Reader fileReader = new InputStreamReader(inputStream);
 			reader = new CSVReader(fileReader);

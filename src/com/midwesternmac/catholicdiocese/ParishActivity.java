@@ -49,7 +49,8 @@ public class ParishActivity extends MapActivity {
 		map = (MapView) findViewById(R.id.map);
 		map.setBuiltInZoomControls(true);
 
-		// Set the Map's center location and default zoom level.
+		// @config - Set the Map's center location and default zoom level.
+		// TODO: Move these defaults into res/values/other.xml.
 		mapController = map.getController();
 		mapController.setCenter(new GeoPoint(38631355, -95396881));
 		mapController.setZoom(4);
@@ -115,8 +116,8 @@ public class ParishActivity extends MapActivity {
 				@Override
 				public void run() {
 					AlertDialog dialog = new AlertDialog.Builder(ParishActivity.this).create();
-					dialog.setTitle("Location Not Found");
-					dialog.setMessage("Could not find your location. Make sure you have location services enabled.");
+					dialog.setTitle(getString(R.string.mapview_location_not_found));
+					dialog.setMessage(getString(R.string.mapview_location_not_found_message));
 					dialog.setButton("OK", new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int id) {
 							return;
@@ -211,8 +212,8 @@ public class ParishActivity extends MapActivity {
 	// Create a menu for this activity.
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.addSubMenu(0, 0, 0, "Search Parishes");
-		menu.addSubMenu(0, 1, 0, "Locate Me");
+		menu.addSubMenu(0, 0, 0, getString(R.string.mapview_menu_search));
+		menu.addSubMenu(0, 1, 0, getString(R.string.mapview_menu_locate));
 		return true;
 	}
 
