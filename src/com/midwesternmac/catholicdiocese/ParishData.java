@@ -81,8 +81,8 @@ public class ParishData extends SQLiteOpenHelper {
 			// If the file's not in the assets folder, we're up a creek!
 			e.printStackTrace();
 		}
-		// Close the database connection.
-		database.close();
+		// Don't close the database connection here, because we'll probably be
+		// using it again in other class methods.
 	}
 
 	@Override
