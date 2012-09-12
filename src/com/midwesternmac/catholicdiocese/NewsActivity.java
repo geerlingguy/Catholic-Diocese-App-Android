@@ -67,7 +67,7 @@ public class NewsActivity extends ListActivity {
 
 		// Before downloading news, set a progress dialog.
 		protected void onPreExecute() {
-			this.dialog.setMessage("Downloading news...");
+			this.dialog.setMessage(getString(R.string.news_download));
 			this.dialog.show();
 		}
 
@@ -96,8 +96,8 @@ public class NewsActivity extends ListActivity {
 			catch (Throwable t) {
 				// Display an alert letting the user know the feed download failed.
 				AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-				alertDialog.setTitle("Download Error");
-				alertDialog.setMessage("There was an error downloading the latest news. Please try again later, when you have a reliable internet connection.");
+				alertDialog.setTitle(getString(R.string.news_download_error));
+				alertDialog.setMessage(getString(R.string.news_download_error_msg));
 				alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						// Don't do anything.
@@ -189,7 +189,7 @@ public class NewsActivity extends ListActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
-		menu.add(0, 1, 0, "Refresh").setIcon(R.drawable.ic_menu_refresh);
+		menu.add(0, 1, 0, getString(R.string.news_refresh)).setIcon(R.drawable.ic_menu_refresh);
 		return true;
 	}
 

@@ -21,28 +21,28 @@ public class CatholicDiocese extends TabActivity {
 		// Create an Intent to launch an Activity for the tab (to be reused)
 		intent = new Intent().setClass(this, ParishActivity.class);
 		// Initialize a TabSpec for each tab and add it to the TabHost
-		spec = tabHost.newTabSpec("artists").setIndicator("Parishes",
+		spec = tabHost.newTabSpec("artists").setIndicator(res.getString(R.string.tab_parishes),
 				res.getDrawable(R.drawable.ic_tab_parishes))
 				.setContent(intent);
 		tabHost.addTab(spec);
 
 		// Do the same for the News tab.
 		intent = new Intent().setClass(this, NewsActivity.class);
-		spec = tabHost.newTabSpec("albums").setIndicator("News",
+		spec = tabHost.newTabSpec("albums").setIndicator(res.getString(R.string.tab_news),
 				res.getDrawable(R.drawable.ic_tab_news))
 				.setContent(intent);
 		tabHost.addTab(spec);
 
 		// Do the same for the Prayers tab.
 		intent = new Intent().setClass(this, PrayerActivity.class);
-		spec = tabHost.newTabSpec("songs").setIndicator("Prayers",
+		spec = tabHost.newTabSpec("songs").setIndicator(res.getString(R.string.tab_prayers),
 				res.getDrawable(R.drawable.ic_tab_prayers))
 				.setContent(intent);
 		tabHost.addTab(spec);
 
 		// Do the same for the About tab.
 		intent = new Intent().setClass(this, AboutActivity.class);
-		spec = tabHost.newTabSpec("songs").setIndicator("About",
+		spec = tabHost.newTabSpec("songs").setIndicator(res.getString(R.string.tab_about),
 				res.getDrawable(R.drawable.ic_tab_about))
 				.setContent(intent);
 		tabHost.addTab(spec);
