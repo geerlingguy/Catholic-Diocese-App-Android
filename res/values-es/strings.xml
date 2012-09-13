@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Diócesis Católica</string>
+	<string name="parish_search_hint">Buscar parroquias</string>
+	<string name="webview_loading">Cargando&#8230;</string>
+	<string name="webview_sharetext">App móvil de la Diócesis Católica:</string>
+	<string name="webview_share">Compartir</string>
+	<string name="webview_refresh">Actualizar</string>
+	<string name="webview_back">Atrás</string>
+	<string name="webview_forward">Adelante</string>
+	<string name="mapview_open">Ver Detalles</string>
+	<string name="mapview_dismiss">Descartar</string>
+	<string name="mapview_location_not_found">Ubicación No Encontrada</string>
+	<string name="mapview_location_not_found_message">No se pudo determinar su ubicación. Asegúrese de que los servicios de ubicación estén activados.</string>
+	<string name="mapview_menu_search">Buscar Parroquias</string>
+	<string name="mapview_menu_locate">Mi Ubicación</string>
+	<string name="news_empty_list">Ninguna noticia disponible.</string>
+	<string name="news_icon">Icono de Noticias</string>
+	<string name="news_download">Descargando noticias&#8230;</string>
+	<string name="news_download_error">Error de Descarga</string>
+	<string name="news_download_error_msg">Ha ocurrido un error descargando las últimas noticias. Inténtelo más tarde por favor, cuando disponga de una conexión a internet fiable.</string>
+	<string name="news_refresh">Actualizar</string>
+	<string name="placeholder_date">Fecha</string>
+	<string name="placeholder_title">Título</string>
+	<string name="placeholder_description">Descripción</string>
+	<string name="prayer_empty">Oración vacía.</string>
+	<string name="about_icon">Logo</string>
+	<string name="about_button_developer_info">Información del Desarrollador</string>
+	<string name="about_button_developer_details">App basada en Catholic Diocese App, un proyecto en código abierto de Open Source Catholic, patrocinado por Midwestern Mac, LLC.</string>
+	<string name="about_button_privacy">Políticas de Privacidad</string>
+	<string name="about_button_mobile">App Móvil - Más Información</string>
+	<string name="about_button_credits">Créditos</string>
+	<string name="about_copyright">© Jesuit Conference</string>
+	<string name="tab_parishes">Parroquias</string>
+	<string name="tab_news">Noticias</string>
+	<string name="tab_prayers">Oraciones</string>
+	<string name="tab_about">Acerca de</string>
+
+</resources>

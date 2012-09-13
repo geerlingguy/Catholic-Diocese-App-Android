@@ -99,10 +99,10 @@ public class JJGWebViewActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu); // Add menu items, second value is the id, use this in the onCreateOptionsMenu
-		menu.add(0, 1, 0, "Share").setIcon(R.drawable.ic_menu_share);
-		menu.add(0, 2, 0, "Refresh").setIcon(R.drawable.ic_menu_refresh);
-		menu.add(0, 3, 0, "Back").setIcon(R.drawable.ic_menu_back);
-		menu.add(0, 4, 0, "Forward").setIcon(R.drawable.ic_menu_forward);
+		menu.add(0, 1, 0, getString(R.string.webview_share)).setIcon(R.drawable.ic_menu_share);
+		menu.add(0, 2, 0, getString(R.string.webview_refresh)).setIcon(R.drawable.ic_menu_refresh);
+		menu.add(0, 3, 0, getString(R.string.webview_back)).setIcon(R.drawable.ic_menu_back);
+		menu.add(0, 4, 0, getString(R.string.webview_forward)).setIcon(R.drawable.ic_menu_forward);
 		return true;
 	}
 
