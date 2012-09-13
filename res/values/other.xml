@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- Insert your organization's RSS feed URL here. -->
-	<string name="news_feed">http://www.jesuit.org/blog/index.php/feed/</string>
+	<string name="news_feed">http://www.opensourcecatholic.com/sites/opensourcecatholic.com/files/project/resources/latest-news-example-rss.xml</string>
 	<!-- Insert your Google Maps API Key below. Further instructions for getting
 	  an API key can be found at the following URL:
 	  https://developers.google.com/android/maps-api-signup -->

@@ -20,11 +20,11 @@ public class AboutActivity extends Activity {
 	 * The following three methods react to buttons defined in about.xml.
 	 */
 	public void loadPrivacy(View view) {
-		openUrlInBrowser("http://www.jesuit.org/blog/index.php/privacypolicy/");
+		openUrlInBrowser("http://www.example.com/privacy-policy");
 	}
 
 	public void loadMobile(View view) {
-		openUrlInBrowser("http://www.jesuit.org/");
+		openUrlInBrowser("http://www.catholicdioceseapp.com/");
 	}
 
 	public void showDeveloperInfo(View view) {
@@ -32,11 +32,11 @@ public class AboutActivity extends Activity {
 	}
 
 	public void showCredits(View view) {
-		showSomeInformation(getString(R.string.about_button_credits), "Jeff Geerling, Kaitlyn McCarthy Schnieders, Marcus Bleech, Kathreja Sarfati & Derrick Portillo.");
+		showSomeInformation(getString(R.string.about_button_credits), "Jeff Geerling");
 	}
 
 	/**
-	 * Simple function to show an alert with a given title and message.
+	 * Simple method to show an alert with a given title and message.
 	 * 
 	 * @param title
 	 * @param message
