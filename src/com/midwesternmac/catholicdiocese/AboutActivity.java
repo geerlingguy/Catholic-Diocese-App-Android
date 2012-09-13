@@ -28,11 +28,11 @@ public class AboutActivity extends Activity {
 	}
 
 	public void showDeveloperInfo(View view) {
-		showSomeInformation("Developer Information", "App based on Catholic Diocese App, an open source project from Open Source Catholic, sponsored by Midwestern Mac, LLC.");
+		showSomeInformation(getString(R.string.about_button_developer_info), getString(R.string.about_button_developer_details));
 	}
 
 	public void showCredits(View view) {
-		showSomeInformation("Credits", "Jeff Geerling, Kaitlyn McCarthy Schnieders, Marcus Bleech, Kathreja Sarfati & Derrick Portillo.");
+		showSomeInformation(getString(R.string.about_button_credits), "Jeff Geerling, Kaitlyn McCarthy Schnieders, Marcus Bleech, Kathreja Sarfati & Derrick Portillo.");
 	}
 
 	/**

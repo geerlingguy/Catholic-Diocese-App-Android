@@ -4,6 +4,10 @@
 	<string name="parish_search_hint">Search parishes</string>
 	<string name="webview_loading">Loading&#8230;</string>
 	<string name="webview_sharetext">From the Catholic Diocese mobile app:</string>
+	<string name="webview_share">Share</string>
+	<string name="webview_refresh">Refresh</string>
+	<string name="webview_back">Back</string>
+	<string name="webview_forward">Forward</string>
 	<string name="mapview_open">View Details</string>
 	<string name="mapview_dismiss">Dismiss</string>
 	<string name="mapview_location_not_found">Location Not Found</string>
@@ -12,15 +16,24 @@
 	<string name="mapview_menu_locate">Locate Me</string>
 	<string name="news_empty_list">No news articles available.</string>
 	<string name="news_icon">News Icon</string>
+	<string name="news_download">Downloading news&#8230;</string>
+	<string name="news_download_error">Download Error</string>
+	<string name="news_download_error_msg">There was an error downloading the latest news. Please try again later, when you have a reliable internet connection.</string>
+	<string name="news_refresh">Refresh</string>
 	<string name="placeholder_date">Date</string>
 	<string name="placeholder_title">Title</string>
 	<string name="placeholder_description">Description</string>
 	<string name="prayer_empty">Prayer is empty.</string>
 	<string name="about_icon">Logo</string>
 	<string name="about_button_developer_info">Developer Information</string>
+	<string name="about_button_developer_details">App based on Catholic Diocese App, an open source project from Open Source Catholic, sponsored by Midwestern Mac, LLC.</string>
 	<string name="about_button_privacy">Privacy Policy</string>
 	<string name="about_button_mobile">Mobile App - More Information</string>
 	<string name="about_button_credits">Credits</string>
 	<string name="about_copyright">© Jesuit Conference</string>
+	<string name="tab_parishes">Parishes</string>
+	<string name="tab_news">News</string>
+	<string name="tab_prayers">Prayers</string>
+	<string name="tab_about">About</string>
 
 </resources>
